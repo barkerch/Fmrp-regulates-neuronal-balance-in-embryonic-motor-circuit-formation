@@ -1,1 +1,2 @@
-# Fmrp-regulates-neuronal-balance-in-embryonic-motor-circuit-formation
+# Puncta Quantification Macro
+Imaging macro for quantification of the relative size of immunofluorescent puncta.
