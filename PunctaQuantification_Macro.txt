@@ -16,8 +16,8 @@ macro "Run macro [1]"
 	//manually draw entire spinal cord ROI in DAPI channel (ROI 1)
 	//setTool("freehand");
 	waitForUser("Draw Roi");
-    roiManager("Add");
-    roiManager("Show All without labels");
+   	roiManager("Add");
+  	roiManager("Show All without labels");
 	roiManager("Show None");
 	
 	//manually draw ventral spinal cord ROI on DAPI channel (ROI 2)
@@ -30,9 +30,9 @@ macro "Run macro [1]"
 	//Split Channels
 	run("Split Channels");
 	
-	//selectWindow("Desired channel name");
+	//selectWindow("desired channel name");
 	
-   //subtract background, rolling ball, change size at "rolling="
+   	//subtract background, rolling ball, change size at "rolling="
 	run("Subtract Background...", "rolling=2");
 	//run("Watershed");
 
