@@ -1,3 +1,8 @@
+var dir1 = "";
+var t2 = "";
+var dir2 = "";
+var dir3 = "";
+
 macro "Run macro [1]"
 {
 	waitForUser("open image");
