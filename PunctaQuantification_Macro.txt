@@ -1,0 +1,71 @@
+macro "Run macro [1]"
+{
+	waitForUser("open image");
+	
+	//make projection of center of the stack, for start: (stack#/2)-6, for stop: (stack#/2)+6, change projection type at "projection="
+	run("Z Project...", "start=__ stop=__ projection=[Standard Deviation]");
+	
+	//open ROI manager
+	run("ROI Manager...");
+	
+	//manually draw entire spinal cord ROI in DAPI channel (ROI 1)
+	//setTool("freehand");
+	waitForUser("Draw Roi");
+    roiManager("Add");
+    roiManager("Show All without labels");
+	roiManager("Show None");
+	
+	//manually draw ventral spinal cord ROI on DAPI channel (ROI 2)
+	//setTool("freehand");
+	waitForUser("Draw Roi");
+	roiManager("Add");
+	roiManager("Show All without labels");
+	roiManager("Show None");
+	
+	//Split Channels
+	run("Split Channels");
+	
+	//selectWindow("Desired channel name");
+	
+   //subtract background, rolling ball, change size at "rolling="
+	run("Subtract Background...", "rolling=2");
+	//run("Watershed");
+
+	//get individual image statistics
+	getRawStatistics(area, mean, min, max, std);
+	
+	//set threshold based on image statistics, can only go by whole std dev
+	setThreshold(mean + std + std, 4012);
+	
+	//create mask based on threshold
+	run("Create Mask");
+
+	//run watershed algorithm 
+	run("Watershed");
+	
+	//on gephyrin channel add ROI 1
+	roiManager("Select", 0);
+	
+	//particle analyzer, start with ROI 1, change size at "size=" and circularity at "circularity="
+	run("Analyze Particles...", "display clear summarize");
+	
+	//add ROI 2
+	roiManager("Select", 1);
+	
+	//particle analyzer for ROI 2, change size at "size=" and circularity at "circularity="
+	run("Analyze Particles...", "display clear summarize");
+	
+	//measure ROI 1
+	roiManager("Select", 0);
+	run("Measure");
+	
+	//measure ROI 2
+	roiManager("Select", 1);
+	run("Measure");
+	
+	//copy results to data collection document
+	
+	run("Close All");
+	roiManager("Deselect");
+	roiManager("Delete");
+}
