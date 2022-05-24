@@ -52,12 +52,14 @@ macro "Run macro [1]"
 	roiManager("Select", 0);
 	
 	//particle analyzer, start with ROI 1, change size at "size=" and circularity at "circularity="
+	run("Set Measurements...", "area integrated redirect=None decimal=3");
 	run("Analyze Particles...", "display clear summarize");
 	
 	//add ROI 2
 	roiManager("Select", 1);
 	
 	//particle analyzer for ROI 2, change size at "size=" and circularity at "circularity="
+	run("Set Measurements...", "area integrated redirect=None decimal=3");
 	run("Analyze Particles...", "display clear summarize");
 	
 	//measure ROI 1
